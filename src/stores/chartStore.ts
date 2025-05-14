@@ -424,7 +424,7 @@ export const useChartStore = defineStore('chartProperties', {
                     ? {
                           name: series.name,
                           type: 'pie',
-                          color: this.defaultColours[index],
+                          color: this.defaultColours[0],
                           data: seriesData
                       }
                     : series
