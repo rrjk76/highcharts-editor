@@ -393,25 +393,42 @@ export const useChartStore = defineStore('chartProperties', {
         },
 
         /* Update highcharts configuration for pie chart **/
-        updatePieChart(seriesNames: string[], seriesData: { name: string; y: number }[]): void {
+        updatePieChart(seriesNames: string[], seriesData: { name: string; y: number }[], cats?: string[]): void {
             // following would support pie chart as part of hybrid charts
+            // console.log(seriesData)
             // this.chartConfig.series = this.chartConfig.series.map((series, index) =>
-            //     seriesNames.includes(series.name) ? { name: seriesNames[0], type: 'pie', data: seriesData[index] } : series
+            //     seriesNames.includes(series.name)
+            //         ? { name: seriesNames[index],
+            //             type: 'pie',
+            //             data: seriesData
+            //         } : series
             // );
-            this.chartConfig = {
-                title: { text: 'Basic Chart' },
-                subtitle: {
-                    text: ''
-                },
-                series: [
-                    {
-                        name: seriesNames[0],
-                        type: 'pie',
-                        data: seriesData,
-                        colors: this.defaultColours
-                    }
-                ]
-            };
+
+            // this.chartConfig = {
+            //     title: { text: 'Basic Chart' },
+            //     subtitle: {
+            //         text: ''
+            //     },
+            //     series: [
+            //         {
+            //             name: seriesNames[0],
+            //             type: 'pie',
+            //             data: seriesData,
+            //             colors: this.defaultColours
+            //         }
+            //     ]
+            // };
+
+            this.chartConfig.series = this.chartConfig.series.map((series, index) =>
+                seriesNames.includes(series.name)
+                    ? {
+                          name: series.name,
+                          type: 'pie',
+                          color: this.defaultColours[index],
+                          data: seriesData
+                      }
+                    : series
+            );
         },
 
         /* Update highcharts configuration for hybrid chart **/
